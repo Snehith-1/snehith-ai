@@ -56,6 +56,7 @@
             background-color: #f8f9fa;
             border: 1px solid #ccc;
             border-radius: 5px;
+            white-space: pre-line;
         }
     </style>
 </head>
@@ -98,6 +99,9 @@
             const text = response.text();
             console.log(text);
             textai.innerHTML = text;
+
+            // Adjust the alignment of the response text
+            textai.style.textAlign = "justify";
         })
     </script>
 </body>
