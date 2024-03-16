@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snehith AI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        #container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #007bff;
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #textai {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Snehith AI</h1>
+        <p>Hey, I am here now.</p>
+        <label for="input">Enter Your Prompt</label>
+        <textarea id="input" rows="4" placeholder="Type your prompt here..."></textarea>
+        <button id="butGet">Generate Text</button>
+        <p id="textai"></p>
+    </div>
+
+    <script type="importmap">
+        {
+          "imports": {
+            "@google/generative-ai": "https://esm.run/@google/generative-ai"
+          }
+        }
+    </script>
+    <script type="module">
+        let prompt = document.querySelector('#input');
+        let butGet = document.querySelector('#butGet');
+        let textai = document.querySelector('#textai');
+
+        import { GoogleGenerativeAI } from "@google/generative-ai";
+
+        // Fetch your API_KEY
+        const API_KEY = "...";
+
+        // Access your API key (see "Set up your API key" above)
+        const genAI = new GoogleGenerativeAI('AIzaSyBm28WqepC9_1_GspKUWNjBQLves05pq1k');
+
+        butGet.addEventListener('click', async () => {
+            // For text-only input, use the gemini-pro model
+            const model = genAI.getGenerativeModel({ model: "gemini-pro"});
+
+            const result = await model.generateContent(prompt.value);
+            const response = await result.response;
+            const text = response.text();
+            console.log(text);
+            textai.innerHTML = text;
+        })
+    </script>
+</body>
+</html>
